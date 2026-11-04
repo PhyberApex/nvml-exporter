@@ -7,13 +7,28 @@
   "packageRules": [
     {
       "description": "Minor and patch updates merge themselves once the checks pass",
-      "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pin"
+      ],
       "automerge": true
     },
     {
       "description": "docker-compose.yml is the usage example and names this repo's own image on purpose; pinning or bumping it there would only ever point readers at a stale digest",
-      "matchPackageNames": ["ghcr.io/phyberapex/nvml-exporter"],
+      "matchPackageNames": [
+        "ghcr.io/phyberapex/nvml-exporter"
+      ],
       "enabled": false
+    },
+    {
+      "description": "A base-image or pip bump changes the published image, so it is a fix: release-please cuts a patch release for it. Workflow-action bumps stay chores and release nothing.",
+      "matchManagers": [
+        "dockerfile",
+        "pip_requirements"
+      ],
+      "semanticCommitType": "fix"
     }
   ]
 }
