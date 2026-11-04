@@ -1,6 +1,6 @@
 services:
   nvml-exporter:
-    image: ghcr.io/phyberapex/nvml-exporter:latest
+    image: ghcr.io/phyberapex/nvml-exporter:latest@sha256:849e04a90f092a6a93181e9137892c8a2b65925a81b5ca14558012ca12dc3af5
     container_name: nvml-exporter
     restart: unless-stopped
     ports:
