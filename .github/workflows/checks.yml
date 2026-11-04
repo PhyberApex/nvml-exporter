@@ -1,0 +1,26 @@
+name: Checks
+
+on:
+  workflow_call:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - name: Test
+        run: python -m unittest discover -p 'test_*.py' -v
+      - name: Build the image
+        run: docker build -t nvml-exporter:ci .
+      - name: Import the module inside the image
+        run: docker run --rm --entrypoint python nvml-exporter:ci -c "import exporter; print(exporter.PORT, exporter.SCRAPE_INTERVAL)"

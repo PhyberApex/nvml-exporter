@@ -1,0 +1,17 @@
+services:
+  nvml-exporter:
+    image: ghcr.io/phyberapex/nvml-exporter:latest
+    container_name: nvml-exporter
+    restart: unless-stopped
+    ports:
+      - "9835:9835"
+    environment:
+      - SCRAPE_INTERVAL_S=2
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [utility]
