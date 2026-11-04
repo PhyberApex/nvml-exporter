@@ -9,6 +9,11 @@
       "description": "Minor and patch updates merge themselves once the checks pass",
       "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
       "automerge": true
+    },
+    {
+      "description": "docker-compose.yml is the usage example and names this repo's own image on purpose; pinning or bumping it there would only ever point readers at a stale digest",
+      "matchPackageNames": ["ghcr.io/phyberapex/nvml-exporter"],
+      "enabled": false
     }
   ]
 }
